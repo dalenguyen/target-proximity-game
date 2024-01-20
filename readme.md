@@ -11,3 +11,11 @@ cargo new target-proximity-game
 ```bash
 cargo run
 ```
+
+## Useful commands
+
+Add a new dependency
+
+```bash
+cargo add rand
+```
