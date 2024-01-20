@@ -17,5 +17,11 @@ cargo run
 Add a new dependency
 
 ```bash
-cargo add rand
+cargo add PACKAGE_NAME
+```
+
+Create a new lib
+
+```bash
+cargo new LIB_NAME --lib
 ```

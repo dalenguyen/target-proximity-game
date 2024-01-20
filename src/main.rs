@@ -1,5 +1,6 @@
 use std::io;
 use crate::utils::helper::generate_number;
+use crate::utils::helper::generate_number_async;
 
 pub mod utils;
 
@@ -75,5 +76,8 @@ fn create_max_range(players: &Vec<Player>) -> u32 {
 fn main() {
     // collect_players();
     let test = generate_number(100);
-    println!("Value {}", test);
+    println!("Value {}", &test);
+
+    let test2 = generate_number_async(100);
+    // println!("Value {}", &test2);
 }
