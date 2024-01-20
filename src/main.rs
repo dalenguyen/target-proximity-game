@@ -1,5 +1,7 @@
 use std::io;
-use rand::Rng;
+use crate::utils::helper::generate_number;
+
+pub mod utils;
 
 /// Define a struct to represent a Player
 struct Player {
@@ -63,11 +65,11 @@ fn create_max_range(players: &Vec<Player>) -> u32 {
     players.len() as u32 * 50
 }
 
-/// Define a function to generate a random number
-/// M-1: via `rand` library
-fn generate_number(max_range: u32) -> u32 {
-    rand::thread_rng().gen_range(1..max_range)
-}
+// /// Define a function to generate a random number
+// /// M-1: via `rand` library
+// fn generate_number(max_range: u32) -> u32 {
+//     rand::thread_rng().gen_range(1..max_range)
+// }
 
 /// Define the main function to run the game
 fn main() {
