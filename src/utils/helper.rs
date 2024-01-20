@@ -2,14 +2,15 @@ use rand::Rng;
 use reqwest::*;
 
 /// Define a function to generate a random number
+
 /// M-1: via `rand` library
-pub fn generate_number(max_range: u32) -> u32 {
+pub (crate) fn generate_number(max_range: u32) -> u32 {
     rand::thread_rng().gen_range(1..max_range)
 }
 
 #[tokio::main]
 // M-2: via API
-pub async fn generate_number_async(max_range: u32) -> Result<u32> {
+pub (crate) async fn generate_number_async(max_range: u32) -> Result<u32> {
     // Get URL value from the environment
     dotenv::from_path("./.env").expect("Failed to load .env file");
     let url = std::env::var("URL")
@@ -22,7 +23,7 @@ pub async fn generate_number_async(max_range: u32) -> Result<u32> {
     .await?;
 
     let val = body.trim().parse::<u32>().expect("Error in parsing");
-    println!("value = {:?}", val);
+    println!("Async value = {:?}", val);
 
     Ok(val)
 }

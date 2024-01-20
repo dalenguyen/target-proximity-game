@@ -66,18 +66,28 @@ fn create_max_range(players: &Vec<Player>) -> u32 {
     players.len() as u32 * 50
 }
 
-// /// Define a function to generate a random number
-// /// M-1: via `rand` library
-// fn generate_number(max_range: u32) -> u32 {
-//     rand::thread_rng().gen_range(1..max_range)
-// }
+/// Define a function to get the proximity from the players
+/// [proximity = abs_diff(guess, target)]
+fn collect_guesses_into_proximities(players: &Vec<Player>, max_range: u32) -> Vec<(String, u32)> {
+    let mut player_proximities = Vec::<(String,u32)>::new();
+    let target = generate_number(create_max_range(players)); //.expect("Failure to generate number");
+    println!("Target: {}", target);
+
+    for player in players {
+        println!("{}'s turn", player.name);
+        let guess = collect_input::<u32>(&format!("Guess the number (1-{max_range}):"));
+        player_proximities.push((player.name.clone(), guess.abs_diff(target)));
+    }
+
+    player_proximities
+}
 
 /// Define the main function to run the game
 fn main() {
     // collect_players();
     let test = generate_number(100);
-    println!("Value {}", &test);
+    println!("Value {}", test);
 
-    let test2 = generate_number_async(100);
-    // println!("Value {}", &test2);
+    let test2 = generate_number_async(100).expect("Failed to get random number");
+    println!("Value {}", test2);
 }
