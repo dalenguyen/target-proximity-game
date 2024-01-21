@@ -130,3 +130,38 @@ fn play_game() {
 fn main() {
     play_game();
 }
+
+#[cfg(test)]
+/// Define unit tests for the functions
+mod tests {
+    use super::*;
+
+    #[test]
+    /// Test if the max_range for given players is invalid
+    fn test_create_max_range() {
+        let players = vec![
+            Player {
+                name: "Dale".to_string(),
+                score: 0,
+            },
+            Player {
+                name: "Yen".to_string(),
+                score: 0
+            }
+        ];
+
+        let max_range = create_max_range(&players);
+        assert_eq!(max_range, players.len() as u32 * 50);
+    }
+
+    #[test]
+    /// Test if the player is correctly displayed
+    fn test_player_to_string() {
+        let player = Player {
+            name: "Xoai".to_string(),
+            score: 3
+        };
+
+        assert_eq!(player.to_string(), "Xoai (3)");
+    }
+}

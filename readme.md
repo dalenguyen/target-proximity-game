@@ -12,6 +12,12 @@ cargo new target-proximity-game
 cargo run
 ```
 
+## Run the test
+
+```bash
+cargo test
+```
+
 ## Useful commands
 
 Add a new dependency

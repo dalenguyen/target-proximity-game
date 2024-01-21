@@ -27,3 +27,18 @@ pub (crate) async fn generate_number_async(max_range: u32) -> Result<u32> {
 
     Ok(val)
 }
+
+#[cfg(test)]
+/// Define unit tests for the functions
+mod tests {
+    use super::*;
+
+    #[test]
+    /// Test if generated random number is valid
+    fn test_valid_rng() {
+        let max_val = 100;
+        let rand_value = generate_number(max_val);
+
+        assert!(rand_value >= 1 && rand_value <= max_val);
+    }
+}
