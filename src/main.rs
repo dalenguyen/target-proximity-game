@@ -1,36 +1,17 @@
-use std::io;
+use utils::traits::Printable;
+
 use crate::utils::helper::generate_number;
+use crate::utils::inputs::collect_input;
+use crate::utils::scores::{update_scores, print_scores};
 // use crate::utils::helper::generate_number_async;
 use crate::utils::structs::Player;
 
 pub mod utils;
 
-/// Define a trait to represent printable objects
-trait Printable {
-    fn to_string(&self) -> String;
-}
-
 /// Implement the Printable trait for the Play struct
 impl Printable for Player {
     fn to_string(&self) -> String {
         format!("{} ({})", self.name, self.score)
-    }
-}
-
-// Define a generic function to get user input
-fn collect_input<T: std::str::FromStr>(prompt: &str) -> T {
-    loop {
-        println!("{}", prompt);
-        let mut input = String::new();
-
-        io::stdin()
-            .read_line(&mut input)
-            .expect("Failed to read input");
-        
-        match input.trim().parse() {
-            Ok(value) => return value,
-            Err(_) => continue
-        }
     }
 }
 
@@ -80,23 +61,6 @@ fn collect_guesses_into_proximities(players: &Vec<Player>, max_range: u32) -> Ve
 /// Define a function to get the winner
 fn get_winner(player_proximities: &Vec<(String, u32)>) -> String {
     player_proximities[0].0.to_owned()
-}
-
-/// Define a function to update the scores
-fn update_scores(players: &mut Vec<Player>, winner: &str) {
-    for player in players {
-        if player.name == winner {
-            player.score += 1
-        }
-    }
-}
-
-/// Define a function to print the scores
-fn print_scores(players: &Vec<Player>) {
-    println!("Scores: 📊");
-    for player in players {
-        println!("- {}", player.to_string());
-    }
 }
 
 /// Define a function to play the game
