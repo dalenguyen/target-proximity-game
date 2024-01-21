@@ -1,14 +1,9 @@
 use std::io;
 use crate::utils::helper::generate_number;
 use crate::utils::helper::generate_number_async;
+use crate::utils::structs::Player;
 
 pub mod utils;
-
-/// Define a struct to represent a Player
-struct Player {
-    name: String,
-    score: u32
-}
 
 /// Define a trait to represent printable objects
 trait Printable {
@@ -80,6 +75,28 @@ fn collect_guesses_into_proximities(players: &Vec<Player>, max_range: u32) -> Ve
     }
 
     player_proximities
+}
+
+/// Define a function to get the winner
+fn get_winner(player_proximities: &Vec<(String, u32)>) -> String {
+    player_proximities[0].0.to_owned()
+}
+
+/// Define a function to update the scores
+fn update_scores(players: &mut Vec<Player>, winner: &str) {
+    for player in players {
+        if player.name == winner {
+            player.score += 1
+        }
+    }
+}
+
+/// Define a function to print the scores
+fn print_scores(players: &Vec<Player>) {
+    println!("Scores: ");
+    for player in players {
+        println!("- {}", player.to_string());
+    }
 }
 
 /// Define the main function to run the game
