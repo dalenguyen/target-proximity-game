@@ -1,6 +1,6 @@
 use std::io;
 use crate::utils::helper::generate_number;
-use crate::utils::helper::generate_number_async;
+// use crate::utils::helper::generate_number_async;
 use crate::utils::structs::Player;
 
 pub mod utils;
@@ -66,7 +66,7 @@ fn create_max_range(players: &Vec<Player>) -> u32 {
 fn collect_guesses_into_proximities(players: &Vec<Player>, max_range: u32) -> Vec<(String, u32)> {
     let mut player_proximities = Vec::<(String,u32)>::new();
     let target = generate_number(create_max_range(players)); //.expect("Failure to generate number");
-    println!("Target: {}", target);
+    // println!("Target: {} \n", target);
 
     for player in players {
         println!("{}'s turn", player.name);
@@ -93,18 +93,40 @@ fn update_scores(players: &mut Vec<Player>, winner: &str) {
 
 /// Define a function to print the scores
 fn print_scores(players: &Vec<Player>) {
-    println!("Scores: ");
+    println!("Scores: 📊");
     for player in players {
         println!("- {}", player.to_string());
     }
 }
 
+/// Define a function to play the game
+/// This function starts the Target Proximity Game. It gets the players, creates the max range
+/// and runs the game in a loop until the players decide to stop playing. It prints the winner
+/// and updates the scores of the players
+fn play_game() {
+    println!("Welcome to the Target Proximity Game! 🎮");
+    let mut players = collect_players();
+    let max_range = create_max_range(&players);
+
+    loop {
+        let mut player_proximities = collect_guesses_into_proximities(&players, max_range);
+        player_proximities.sort_by_key(|&(_, v) | v);
+        let winner = get_winner(&player_proximities);
+
+        println!("Congratulations, {}! You are the winner! 🏆🎉 \n", winner);
+        update_scores(&mut players, &winner);
+        print_scores(&players);
+
+        let play_again: String = collect_input("Play again? (y/n)");
+
+        // if input is anything other than "y", it breaks
+        if play_again.to_ascii_lowercase() != "y" {
+            break;
+        }
+     }
+}
+
 /// Define the main function to run the game
 fn main() {
-    // collect_players();
-    let test = generate_number(100);
-    println!("Value {}", test);
-
-    let test2 = generate_number_async(100).expect("Failed to get random number");
-    println!("Value {}", test2);
+    play_game();
 }

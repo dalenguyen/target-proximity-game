@@ -25,3 +25,7 @@ Create a new lib
 ```bash
 cargo new LIB_NAME --lib
 ```
+
+## Reference
+
+https://www.coursera.org/learn/rust-for-beginners-building-target-proximity-game
